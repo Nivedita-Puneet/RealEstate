@@ -28,7 +28,7 @@ public class ApplicationDataManager implements DataManager {
 
     @Override
     public Flowable<Property> getRealEstateProperties() {
-        return null;
+        return apiHelper.getRealEstateProperties();
     }
 
     @Override
