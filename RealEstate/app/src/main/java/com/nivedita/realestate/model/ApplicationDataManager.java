@@ -9,6 +9,8 @@ import com.nivedita.realestate.model.property.Property;
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Class used by presenter to handle all data driven operations
@@ -32,7 +34,12 @@ public class ApplicationDataManager implements DataManager {
     }
 
     @Override
-    public void onPageLoad() {
+    public void unSubscribeRealEstateProperties(Disposable disposable, CompositeDisposable compositeDisposable) {
+
+        if(disposable != null && !disposable.isDisposed()){
+
+            compositeDisposable.dispose();
+        }
 
     }
 }

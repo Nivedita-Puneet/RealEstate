@@ -12,7 +12,6 @@ import com.nivedita.realestate.propertylist.PropertyListView;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.processors.PublishProcessor;
 
 /**
  * The Module class for Property List which provides all the dependencies.
@@ -28,13 +27,9 @@ public class PropertyListModule {
     }
 
     //TODO: Add adapter as a dependency module.
-    @Provides
-    PublishProcessor<Integer> publishProcessor() {
-        return PublishProcessor.create();
-    }
 
     @Provides
-    CompositeDisposable provideCompositeDisposable() {
+    CompositeDisposable provideCompositeDisposable(){
         return new CompositeDisposable();
     }
 

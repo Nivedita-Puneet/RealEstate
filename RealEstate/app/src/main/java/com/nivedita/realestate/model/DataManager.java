@@ -4,6 +4,9 @@ import com.nivedita.realestate.model.network.APIHelper;
 
 import javax.inject.Singleton;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 /**
  * Interface which defines Single
  * responsibility Principle to declare methods wo consume them from
@@ -13,5 +16,5 @@ import javax.inject.Singleton;
 @Singleton
 public interface DataManager extends APIHelper{
 
-    public void onPageLoad();
+    public void unSubscribeRealEstateProperties(Disposable disposable, CompositeDisposable compositeDisposable);
 }
