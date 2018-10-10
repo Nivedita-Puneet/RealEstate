@@ -12,6 +12,7 @@ import com.nivedita.realestate.propertylist.PropertyListView;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.processors.PublishProcessor;
 
 /**
  * The Module class for Property List which provides all the dependencies.
@@ -42,5 +43,10 @@ public class PropertyListModule {
     @Provides
     PropertyListBasePresenter<PropertyListView> providePresenter(PropertyListPresenter<PropertyListView> propertyListPresenter) {
         return propertyListPresenter;
+    }
+
+    @Provides
+    PublishProcessor<Integer> providePublishProcessor(){
+        return PublishProcessor.create();
     }
 }

@@ -15,12 +15,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import com.nivedita.realestate.base.BaseActivity;
+import com.nivedita.realestate.model.network.LogNetworkError;
+import com.nivedita.realestate.model.property.Listing;
 import com.nivedita.realestate.propertydetail.PropertyListDetailActivity;
 import com.nivedita.realestate.propertydetail.PropertyListDetailFragment;
 import com.nivedita.realestate.R;
 import com.nivedita.realestate.model.DummyContent;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * An activity representing a list of PropertyListItems. This activity
@@ -30,116 +35,98 @@ import java.util.List;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class PropertyListActivity extends AppCompatActivity {
+public class PropertyListActivity extends BaseActivity implements PropertyListView {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
+    private RecyclerView propertyListView;
+    PropertyListAdapter propertyListAdapter;
+
+    @Inject
+    PropertyListBasePresenter<PropertyListView> propertyListPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_property_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        if (findViewById(R.id.propertylist_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-        }
-
-        View recyclerView = findViewById(R.id.propertylist_list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+        initializeControls();
+        propertyListPresenter.attachView(this);
+        propertyListPresenter.onBindViewSubscription();
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
-    }
+    private void initializeControls(){
 
-    public static class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
-
-        private final PropertyListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
-        private final boolean mTwoPane;
-        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        propertyListView = (RecyclerView)findViewById(R.id.propertylist_list);
+        propertyListView.setAdapter(new PropertyListAdapter(PropertyListActivity.this, new PropertyListAdapter.PropertyListClickListener() {
             @Override
-            public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
-                if (mTwoPane) {
+            public void onClickListener(String itemPosition) {
+
+                if(checkForTabletConfiguration()){
+
                     Bundle arguments = new Bundle();
-                    arguments.putString(PropertyListDetailFragment.ARG_ITEM_ID, item.id);
+                    arguments.putString(PropertyListDetailFragment.ARG_ITEM_ID, itemPosition);
                     PropertyListDetailFragment fragment = new PropertyListDetailFragment();
                     fragment.setArguments(arguments);
-                    mParentActivity.getSupportFragmentManager().beginTransaction()
+                    PropertyListActivity.this.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.propertylist_detail_container, fragment)
                             .commit();
-                } else {
-                    Context context = view.getContext();
-                    Intent intent = new Intent(context, PropertyListDetailActivity.class);
-                    intent.putExtra(PropertyListDetailFragment.ARG_ITEM_ID, item.id);
+                }else {
 
-                    context.startActivity(intent);
+                    Intent intent = new Intent(PropertyListActivity.this, PropertyListDetailActivity.class);
+                    intent.putExtra(PropertyListDetailFragment.ARG_ITEM_ID, itemPosition);
+                    PropertyListActivity.this.startActivity(intent);
+
                 }
             }
-        };
+        }));
 
-        SimpleItemRecyclerViewAdapter(PropertyListActivity parent,
-                                      List<DummyContent.DummyItem> items,
-                                      boolean twoPane) {
-            mValues = items;
-            mParentActivity = parent;
-            mTwoPane = twoPane;
+    }
 
+    private boolean checkForTabletConfiguration(){
+
+        if(findViewById(R.id.propertylist_detail_container)!= null){
+            mTwoPane = true;
         }
+        return mTwoPane;
+    }
 
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.property_list_content, parent, false);
-            return new ViewHolder(view);
-        }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        propertyListPresenter.detachView();
+    }
 
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+    @Override
+    public void showError(LogNetworkError logNetworkError) {
 
-            holder.itemView.setTag(mValues.get(position));
-            holder.itemView.setOnClickListener(mOnClickListener);
-        }
+    }
 
-        @Override
-        public int getItemCount() {
-            return mValues.size();
-        }
+    @Override
+    public void showWait() {
 
-        class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mIdView;
-            final TextView mContentView;
+    }
 
-            ViewHolder(View view) {
-                super(view);
-                mIdView = (TextView) view.findViewById(R.id.id_text);
-                mContentView = (TextView) view.findViewById(R.id.content);
-            }
-        }
+    @Override
+    public void removeWait() {
+
+    }
+
+    @Override
+    public void showListOfProperties(List<Listing> properties) {
+
+    }
+
+    @Override
+    public void noPropertiesAvailable() {
+
     }
 }

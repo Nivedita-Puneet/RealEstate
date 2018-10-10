@@ -9,9 +9,9 @@ public class Property {
     @SerializedName("ad_id")
     @Expose
     private Integer adId;
-    @SerializedName("agency")
+    @SerializedName("data")
     @Expose
-    private Agency agency;
+    private Data data;
     @SerializedName("title")
     @Expose
     private String title;
@@ -29,16 +29,16 @@ public class Property {
         return this;
     }
 
-    public Agency getAgency() {
-        return agency;
+    public Data getData() {
+        return data;
     }
 
-    public void setAgency(Agency agency) {
-        this.agency = agency;
+    public void setData(Data data) {
+        this.data = data;
     }
 
-    public Property withData(Agency agency) {
-        this.agency = agency;
+    public Property withData(Data data) {
+        this.data = data;
         return this;
     }
 

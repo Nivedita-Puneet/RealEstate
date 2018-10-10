@@ -1,6 +1,7 @@
 package com.nivedita.realestate.di.module;
 
 import com.nivedita.realestate.BuildConfig;
+import com.nivedita.realestate.model.network.PropertyService;
 import com.nivedita.realestate.util.ConstantsUtil;
 
 import javax.inject.Singleton;
@@ -60,5 +61,12 @@ public class NetworkModule {
                 .addConverterFactory(provideGsonConverterFactory())
                 .addCallAdapterFactory(provideRxJava2CallAdapterFactory())
                 .baseUrl(ConstantsUtil.BASE_URL).build();
+    }
+
+    @Provides
+    @Singleton
+    PropertyService providePropertyService(){
+
+        return provideRetrofitBuilder().create(PropertyService.class);
     }
 }

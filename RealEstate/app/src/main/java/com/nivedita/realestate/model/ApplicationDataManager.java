@@ -34,12 +34,9 @@ public class ApplicationDataManager implements DataManager {
     }
 
     @Override
-    public void unSubscribeRealEstateProperties(Disposable disposable, CompositeDisposable compositeDisposable) {
+    public void unSubscribeRealEstateProperties(CompositeDisposable compositeDisposable) {
 
-        if(disposable != null && !disposable.isDisposed()){
-
-            compositeDisposable.dispose();
-        }
+        compositeDisposable.dispose();
 
     }
 }

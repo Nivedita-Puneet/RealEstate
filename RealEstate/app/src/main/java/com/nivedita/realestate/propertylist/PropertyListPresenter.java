@@ -4,7 +4,8 @@ import android.util.Log;
 
 import com.nivedita.realestate.base.presenter.BasePresenter;
 import com.nivedita.realestate.model.DataManager;
-import com.nivedita.realestate.model.property.AgencyList;
+import com.nivedita.realestate.model.network.LogNetworkError;
+import com.nivedita.realestate.model.property.Listing;
 import com.nivedita.realestate.model.property.Property;
 import com.nivedita.realestate.util.rx.SchedulerProvider;
 
@@ -48,54 +49,47 @@ public class PropertyListPresenter<V extends PropertyListView> extends BasePrese
         this.publishProcessor = publishProcessor;
     }
 
-
-    private Disposable getPropertyListings() {
-
-        getMvpView().showWait();
-        if (compositeDisposable == null || compositeDisposable.isDisposed()) {
-            disposable = publishProcessor.onBackpressureDrop()
-                    .doOnNext(new Consumer<Integer>() {
-                        @Override
-                        public void accept(Integer integer) throws Exception {
-
+    private Disposable getAgencyListing() {
+        return dataManager.getRealEstateProperties().
+                subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(new Consumer<Property>() {
+                    @Override
+                    public void accept(Property property) throws Exception {
+                        Log.i(TAG, property.getTitle());
+                        List<Listing> propertyList = property.getData().getListings();
+                        getMvpView().showListOfProperties(propertyList);
+                        for (int i = 0; i < propertyList.size(); i++) {
+                            Log.i(TAG, propertyList.get(i).getDescription());
                         }
-                    }).concatMap(new Function<Integer, Publisher<Property>>() {
-                        @Override
-                        public Publisher<Property> apply(Integer integer) throws Exception {
-                            return dataManager.getRealEstateProperties()
-                                    .subscribeOn(schedulerProvider.io())
-                                    .observeOn(schedulerProvider.ui());
-                        }
-                    }).subscribe(new Consumer<Property>() {
-                        @Override
-                        public void accept(Property property) throws Exception {
 
-                            List<AgencyList> propertyList = property.getAgency().getAgencyLists();
-                            getMvpView().showListOfProperties(propertyList);
-                            for (int i = 0; i < propertyList.size(); i++) {
-                                Log.i(TAG, propertyList.get(i).getDescription());
-                            }
-                        }
-                    });
-        }
-        return disposable;
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        getMvpView().showError(new LogNetworkError(throwable));
+                    }
+                });
+
     }
 
     @Override
-    public void onBindDataSubscription() {
+    public void onBindViewSubscription() {
 
-        compositeDisposable.add(getPropertyListings());
+        compositeDisposable.add(getAgencyListing());
     }
 
     @Override
-    public void onUnBindDataSubscription() {
+    public void onUnBindViewSubscription() {
 
-        dataManager.unSubscribeRealEstateProperties(disposable, compositeDisposable);
+        dataManager.unSubscribeRealEstateProperties(compositeDisposable);
     }
 
     @Override
     public void detachView() {
         super.detachView();
-        compositeDisposable.clear();
+        onUnBindViewSubscription();
+        //compositeDisposable.clear();
     }
 }

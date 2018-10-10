@@ -16,5 +16,5 @@ import io.reactivex.disposables.Disposable;
 @Singleton
 public interface DataManager extends APIHelper{
 
-    public void unSubscribeRealEstateProperties(Disposable disposable, CompositeDisposable compositeDisposable);
+    public void unSubscribeRealEstateProperties(CompositeDisposable compositeDisposable);
 }

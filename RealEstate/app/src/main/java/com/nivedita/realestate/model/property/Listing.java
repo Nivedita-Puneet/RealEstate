@@ -2,11 +2,10 @@
 package com.nivedita.realestate.model.property;
 
 import java.util.List;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AgencyList {
+public class Listing {
 
     @SerializedName("Id")
     @Expose
@@ -89,7 +88,7 @@ public class AgencyList {
         this.id = id;
     }
 
-    public AgencyList withId(String id) {
+    public Listing withId(String id) {
         this.id = id;
         return this;
     }
@@ -102,7 +101,7 @@ public class AgencyList {
         this.agencyLogoUrl = agencyLogoUrl;
     }
 
-    public AgencyList withAgencyLogoUrl(String agencyLogoUrl) {
+    public Listing withAgencyLogoUrl(String agencyLogoUrl) {
         this.agencyLogoUrl = agencyLogoUrl;
         return this;
     }
@@ -115,7 +114,7 @@ public class AgencyList {
         this.area = area;
     }
 
-    public AgencyList withArea(String area) {
+    public Listing withArea(String area) {
         this.area = area;
         return this;
     }
@@ -128,7 +127,7 @@ public class AgencyList {
         this.auctionDate = auctionDate;
     }
 
-    public AgencyList withAuctionDate(String auctionDate) {
+    public Listing withAuctionDate(String auctionDate) {
         this.auctionDate = auctionDate;
         return this;
     }
@@ -141,7 +140,7 @@ public class AgencyList {
         this.availableFrom = availableFrom;
     }
 
-    public AgencyList withAvailableFrom(Object availableFrom) {
+    public Listing withAvailableFrom(Object availableFrom) {
         this.availableFrom = availableFrom;
         return this;
     }
@@ -154,7 +153,7 @@ public class AgencyList {
         this.bathrooms = bathrooms;
     }
 
-    public AgencyList withBathrooms(Integer bathrooms) {
+    public Listing withBathrooms(Integer bathrooms) {
         this.bathrooms = bathrooms;
         return this;
     }
@@ -167,7 +166,7 @@ public class AgencyList {
         this.bedrooms = bedrooms;
     }
 
-    public AgencyList withBedrooms(Integer bedrooms) {
+    public Listing withBedrooms(Integer bedrooms) {
         this.bedrooms = bedrooms;
         return this;
     }
@@ -180,7 +179,7 @@ public class AgencyList {
         this.carspaces = carspaces;
     }
 
-    public AgencyList withCarspaces(Integer carspaces) {
+    public Listing withCarspaces(Integer carspaces) {
         this.carspaces = carspaces;
         return this;
     }
@@ -193,7 +192,7 @@ public class AgencyList {
         this.dateFirstListed = dateFirstListed;
     }
 
-    public AgencyList withDateFirstListed(String dateFirstListed) {
+    public Listing withDateFirstListed(String dateFirstListed) {
         this.dateFirstListed = dateFirstListed;
         return this;
     }
@@ -206,7 +205,7 @@ public class AgencyList {
         this.dateUpdated = dateUpdated;
     }
 
-    public AgencyList withDateUpdated(String dateUpdated) {
+    public Listing withDateUpdated(String dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
@@ -219,7 +218,7 @@ public class AgencyList {
         this.description = description;
     }
 
-    public AgencyList withDescription(String description) {
+    public Listing withDescription(String description) {
         this.description = description;
         return this;
     }
@@ -232,7 +231,7 @@ public class AgencyList {
         this.displayPrice = displayPrice;
     }
 
-    public AgencyList withDisplayPrice(String displayPrice) {
+    public Listing withDisplayPrice(String displayPrice) {
         this.displayPrice = displayPrice;
         return this;
     }
@@ -245,7 +244,7 @@ public class AgencyList {
         this.currency = currency;
     }
 
-    public AgencyList withCurrency(String currency) {
+    public Listing withCurrency(String currency) {
         this.currency = currency;
         return this;
     }
@@ -258,7 +257,7 @@ public class AgencyList {
         this.location = location;
     }
 
-    public AgencyList withLocation(Location location) {
+    public Listing withLocation(Location location) {
         this.location = location;
         return this;
     }
@@ -271,7 +270,7 @@ public class AgencyList {
         this.owner = owner;
     }
 
-    public AgencyList withOwner(Owner owner) {
+    public Listing withOwner(Owner owner) {
         this.owner = owner;
         return this;
     }
@@ -284,7 +283,7 @@ public class AgencyList {
         this.imageUrls = imageUrls;
     }
 
-    public AgencyList withImageUrls(List<String> imageUrls) {
+    public Listing withImageUrls(List<String> imageUrls) {
         this.imageUrls = imageUrls;
         return this;
     }
@@ -297,7 +296,7 @@ public class AgencyList {
         this.isPremium = isPremium;
     }
 
-    public AgencyList withIsPremium(Integer isPremium) {
+    public Listing withIsPremium(Integer isPremium) {
         this.isPremium = isPremium;
         return this;
     }
@@ -310,7 +309,7 @@ public class AgencyList {
         this.isPriority = isPriority;
     }
 
-    public AgencyList withIsPriority(Integer isPriority) {
+    public Listing withIsPriority(Integer isPriority) {
         this.isPriority = isPriority;
         return this;
     }
@@ -323,7 +322,7 @@ public class AgencyList {
         this.latitude = latitude;
     }
 
-    public AgencyList withLatitude(Float latitude) {
+    public Listing withLatitude(Float latitude) {
         this.latitude = latitude;
         return this;
     }
@@ -336,7 +335,7 @@ public class AgencyList {
         this.listingPrice = listingPrice;
     }
 
-    public AgencyList withListingPrice(Object listingPrice) {
+    public Listing withListingPrice(Object listingPrice) {
         this.listingPrice = listingPrice;
         return this;
     }
@@ -349,7 +348,7 @@ public class AgencyList {
         this.listingStatistics = listingStatistics;
     }
 
-    public AgencyList withListingStatistics(Object listingStatistics) {
+    public Listing withListingStatistics(Object listingStatistics) {
         this.listingStatistics = listingStatistics;
         return this;
     }
@@ -362,7 +361,7 @@ public class AgencyList {
         this.listingType = listingType;
     }
 
-    public AgencyList withListingType(String listingType) {
+    public Listing withListingType(String listingType) {
         this.listingType = listingType;
         return this;
     }
@@ -375,7 +374,7 @@ public class AgencyList {
         this.listingTypeString = listingTypeString;
     }
 
-    public AgencyList withListingTypeString(String listingTypeString) {
+    public Listing withListingTypeString(String listingTypeString) {
         this.listingTypeString = listingTypeString;
         return this;
     }
@@ -388,7 +387,7 @@ public class AgencyList {
         this.longitude = longitude;
     }
 
-    public AgencyList withLongitude(Float longitude) {
+    public Listing withLongitude(Float longitude) {
         this.longitude = longitude;
         return this;
     }
