@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,13 +61,14 @@ public class PropertyListActivity extends BaseActivity implements PropertyListVi
         toolbar.setTitle(getTitle());
         initializeControls();
         propertyListPresenter.attachView(this);
-        propertyListPresenter.onBindViewSubscription();
     }
 
     private void initializeControls(){
 
+        propertyListAdapter = new PropertyListAdapter(PropertyListActivity.this, null);
         propertyListView = (RecyclerView)findViewById(R.id.propertylist_list);
-        propertyListView.setAdapter(new PropertyListAdapter(PropertyListActivity.this, new PropertyListAdapter.PropertyListClickListener() {
+        propertyListView.setAdapter(propertyListAdapter);
+        /*propertyListView.setAdapter(new PropertyListAdapter(PropertyListActivity.this, new PropertyListAdapter.PropertyListClickListener() {
             @Override
             public void onClickListener(String itemPosition) {
 
@@ -87,7 +89,7 @@ public class PropertyListActivity extends BaseActivity implements PropertyListVi
 
                 }
             }
-        }));
+        }));*/
 
     }
 
@@ -103,6 +105,7 @@ public class PropertyListActivity extends BaseActivity implements PropertyListVi
     public void onDestroy(){
         super.onDestroy();
         propertyListPresenter.detachView();
+        propertyListPresenter.onUnBindDataSubscription();
     }
 
     @Override
@@ -122,7 +125,8 @@ public class PropertyListActivity extends BaseActivity implements PropertyListVi
 
     @Override
     public void showListOfProperties(List<Listing> properties) {
-
+        Log.i(PropertyListActivity.class.getSimpleName(), properties.get(0).getAgencyLogoUrl());
+        propertyListAdapter.addAll(properties);
     }
 
     @Override

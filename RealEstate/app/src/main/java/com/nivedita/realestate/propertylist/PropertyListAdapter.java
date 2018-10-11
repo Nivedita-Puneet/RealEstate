@@ -6,8 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.nivedita.realestate.R;
 import com.nivedita.realestate.model.DummyContent;
 import com.nivedita.realestate.model.property.Listing;
@@ -24,15 +27,16 @@ public class PropertyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private List<Listing> propertyAgencies;
     private Context context;
-    private final List<DummyContent.DummyItem> mValues;
+    //private final List<DummyContent.DummyItem> mValues;
     private PropertyListClickListener propertyListClickListener;
 
 
     public PropertyListAdapter(Context context, PropertyListClickListener propertyListClickListener) {
         this.context = context;
         propertyAgencies = new LinkedList<>();
-        mValues = DummyContent.ITEMS;
+       // mValues = DummyContent.ITEMS;
         this.propertyListClickListener = propertyListClickListener;
+        propertyAgencies = new LinkedList<>();
     }
 
     public interface PropertyListClickListener {
@@ -44,20 +48,21 @@ public class PropertyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         final TextView mIdView;
         final TextView mContentView;
-
+        final ImageView propertyImageView;
 
         public PropertyViewHolder(View itemView) {
             super(itemView);
             mIdView = (TextView) itemView.findViewById(R.id.id_text);
-            mContentView = (TextView) itemView.findViewById(R.id.content);
+            mContentView = (TextView) itemView.findViewById(R.id.id_content);
+            propertyImageView = (ImageView)itemView.findViewById(R.id.media_image);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
 
-            DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
-            PropertyListAdapter.this.propertyListClickListener.onClickListener(item.id);
+           // DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+            PropertyListAdapter.this.propertyListClickListener.onClickListener("");
 
         }
     }
@@ -84,7 +89,7 @@ public class PropertyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return propertyAgencies.size();
     }
 
     @Override
@@ -92,9 +97,34 @@ public class PropertyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         PropertyViewHolder propertyViewHolder = (PropertyViewHolder) viewHolder;
 
-        propertyViewHolder.mIdView.setText(mValues.get(position).id);
-        propertyViewHolder.mContentView.setText(mValues.get(position).content);
-
-        viewHolder.itemView.setTag(mValues.get(position));
+        propertyViewHolder.mIdView.setText(propertyAgencies.get(position).getOwner().getName());
+        propertyViewHolder.mContentView.setText(propertyAgencies.get(position).getOwner().getLastName());
+        Glide.with(context)
+                .load(propertyAgencies.get(position).getImageUrls().get(2))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
+                .crossFade()
+                .into(propertyViewHolder.propertyImageView);
+       // viewHolder.itemView.setTag(mValues.get(position));
     }
+
+    public List<Listing> getProperties(){
+        return propertyAgencies;
+    }
+
+    public void setPropertyAgencies(List<Listing> propertyAgencies){
+        this.propertyAgencies = propertyAgencies;
+    }
+
+    public void add(Listing r) {
+        propertyAgencies.add(r);
+        notifyItemInserted(propertyAgencies.size() - 1);
+    }
+
+    public void addAll(List<Listing> moveResults) {
+        for (Listing result : moveResults) {
+            add(result);
+        }
+    }
+
 }

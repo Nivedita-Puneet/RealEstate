@@ -10,6 +10,6 @@ import com.nivedita.realestate.di.scope.PerActivity;
 @PerActivity
 public interface PropertyListBasePresenter<V extends PropertyListView> extends Presenter<V> {
 
-    void onBindViewSubscription();
-    void onUnBindViewSubscription();
+    void loadDataForPropertyList();
+    void onUnBindDataSubscription();
 }

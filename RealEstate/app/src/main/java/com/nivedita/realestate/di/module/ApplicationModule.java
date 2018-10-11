@@ -8,6 +8,7 @@ import com.nivedita.realestate.model.ApplicationDataManager;
 import com.nivedita.realestate.model.DataManager;
 import com.nivedita.realestate.model.network.APIHelper;
 import com.nivedita.realestate.model.network.PropertyAPIHelper;
+import com.nivedita.realestate.model.property.Property;
 import com.nivedita.realestate.util.rx.AppSchedulerProvider;
 import com.nivedita.realestate.util.rx.SchedulerProvider;
 
@@ -15,6 +16,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.Flowable;
+import io.reactivex.processors.PublishProcessor;
+import io.reactivex.subjects.BehaviorSubject;
 
 /**
  * Define Application Module which defines dependencies.

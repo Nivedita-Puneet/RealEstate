@@ -14,7 +14,8 @@ import io.reactivex.disposables.Disposable;
  */
 
 @Singleton
-public interface DataManager extends APIHelper{
+public interface DataManager extends APIHelper {
 
-    public void unSubscribeRealEstateProperties(CompositeDisposable compositeDisposable);
+    //public void unSubscribeRealEstateProperties(CompositeDisposable compositeDisposable);
+    void loadPropertyListForActivity();
 }
