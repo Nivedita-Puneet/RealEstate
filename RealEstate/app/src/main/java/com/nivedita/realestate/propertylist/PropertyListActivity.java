@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -22,33 +23,24 @@ import com.nivedita.realestate.model.property.Listing;
 import com.nivedita.realestate.propertydetail.PropertyListDetailActivity;
 import com.nivedita.realestate.propertydetail.PropertyListDetailFragment;
 import com.nivedita.realestate.R;
-import com.nivedita.realestate.model.DummyContent;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-/**
- * An activity representing a list of PropertyListItems. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link PropertyListDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- */
 public class PropertyListActivity extends BaseActivity implements PropertyListView {
 
+    PropertyListAdapter propertyListAdapter;
+    @Inject
+    PropertyListBasePresenter<PropertyListView> propertyListPresenter;
+
+    ProgressBar progressBar;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
     private RecyclerView propertyListView;
-    PropertyListAdapter propertyListAdapter;
-
-    @Inject
-    PropertyListBasePresenter<PropertyListView> propertyListPresenter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +55,11 @@ public class PropertyListActivity extends BaseActivity implements PropertyListVi
         propertyListPresenter.attachView(this);
     }
 
-    private void initializeControls(){
+    private void initializeControls() {
 
         propertyListAdapter = new PropertyListAdapter(PropertyListActivity.this, null);
-        propertyListView = (RecyclerView)findViewById(R.id.propertylist_list);
+        propertyListView = (RecyclerView) findViewById(R.id.propertylist_list);
+        progressBar = (ProgressBar) findViewById(R.id.main_progress);
         propertyListView.setAdapter(propertyListAdapter);
         /*propertyListView.setAdapter(new PropertyListAdapter(PropertyListActivity.this, new PropertyListAdapter.PropertyListClickListener() {
             @Override
@@ -93,16 +86,16 @@ public class PropertyListActivity extends BaseActivity implements PropertyListVi
 
     }
 
-    private boolean checkForTabletConfiguration(){
+    private boolean checkForTabletConfiguration() {
 
-        if(findViewById(R.id.propertylist_detail_container)!= null){
+        if (findViewById(R.id.propertylist_detail_container) != null) {
             mTwoPane = true;
         }
         return mTwoPane;
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         propertyListPresenter.detachView();
         propertyListPresenter.onUnBindDataSubscription();
@@ -116,11 +109,13 @@ public class PropertyListActivity extends BaseActivity implements PropertyListVi
     @Override
     public void showWait() {
 
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void removeWait() {
 
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

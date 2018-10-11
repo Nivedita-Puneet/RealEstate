@@ -88,6 +88,7 @@ public class PropertyListPresenter<V extends PropertyListView> extends BasePrese
         if (dataSubscription != null && !dataSubscription.isDisposed()) {
             dataSubscription.dispose();
         }
+        getMvpView().showWait();
         dataSubscription = dataManager.getRealEstateProperties().
                 subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
@@ -99,9 +100,7 @@ public class PropertyListPresenter<V extends PropertyListView> extends BasePrese
                         Log.i(TAG, property.getTitle());
                         List<Listing> propertyList = property.getData().getListings();
                         getMvpView().showListOfProperties(propertyList);
-                        for (int i = 0; i < propertyList.size(); i++) {
-                            Log.i(TAG, propertyList.get(i).getDescription());
-                        }
+                        getMvpView().removeWait();
 
                     }
                 }, new Consumer<Throwable>() {
