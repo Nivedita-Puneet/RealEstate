@@ -41,32 +41,30 @@ public class PropertyListPresenter<V extends PropertyListView> extends BasePrese
     PublishProcessor<Property> publishProcessor;
     Disposable viewSubscription;
     Disposable dataSubscription;
-    private DataLoadingState dataLoadingState;
-    private ViewState viewState;
+
+    boolean isPropertyDataAvailable;
 
     @Inject
     public PropertyListPresenter(DataManager dataManager,
                                  SchedulerProvider schedulerProvider,
                                  CompositeDisposable compositeDisposable,
                                  PublishProcessor<Property> publishProcessor,
-                                 DataLoadingState dataLoadingState,
-                                 ViewState viewState) {
+                                 boolean isPropertyDataAvailable
+    ) {
 
         this.dataManager = dataManager;
         this.schedulerProvider = schedulerProvider;
         this.compositeDisposable = compositeDisposable;
         this.publishProcessor = publishProcessor;
-        this.dataLoadingState = dataLoadingState;
-        this.viewState = viewState;
+        this.isPropertyDataAvailable = false;
     }
 
     @Override
     public void attachView(V propertyListActivity) {
         super.attachView(propertyListActivity);
 
-        Log.i(TAG, "Data is loading"+ dataLoadingState.isLoadingData());
-        if (!viewState.isViewLoadedAtLeastOnceWithValidData()
-                && !dataLoadingState.isLoadingData()) {
+        Log.i(TAG, "Data is loading" + isPropertyDataAvailable);
+        if (!isPropertyDataAvailable) {
             loadDataForPropertyList();
         }
 
@@ -80,11 +78,11 @@ public class PropertyListPresenter<V extends PropertyListView> extends BasePrese
 
     private void getPropertyListForActivity() {
 
-        if (dataLoadingState.isLoadingData()) {
+        if (isPropertyDataAvailable) {
 
             return;
         }
-       // dataLoadingState.setLoadingData(true);
+        // dataLoadingState.setLoadingData(true);
         if (dataSubscription != null && !dataSubscription.isDisposed()) {
             dataSubscription.dispose();
         }
@@ -95,8 +93,7 @@ public class PropertyListPresenter<V extends PropertyListView> extends BasePrese
                 .subscribe(new Consumer<Property>() {
                     @Override
                     public void accept(Property property) throws Exception {
-
-                        dataLoadingState.setLoadingData(true);
+                        isPropertyDataAvailable = true;
                         Log.i(TAG, property.getTitle());
                         List<Listing> propertyList = property.getData().getListings();
                         getMvpView().showListOfProperties(propertyList);
@@ -107,7 +104,7 @@ public class PropertyListPresenter<V extends PropertyListView> extends BasePrese
                     @Override
                     public void accept(Throwable throwable) throws Exception {
 
-                        dataLoadingState.setLoadingData(false);
+                        isPropertyDataAvailable = false;
                         getMvpView().showError(new LogNetworkError(throwable));
                     }
                 });
@@ -118,8 +115,8 @@ public class PropertyListPresenter<V extends PropertyListView> extends BasePrese
     public void loadDataForPropertyList() {
 
         getPropertyListForActivity();
-        if(dataSubscription != null)
-        compositeDisposable.add(dataSubscription);
+        if (dataSubscription != null)
+            compositeDisposable.add(dataSubscription);
 
     }
 
@@ -144,7 +141,7 @@ public class PropertyListPresenter<V extends PropertyListView> extends BasePrese
         }
 
     }
-
+    /*Handle two way subscription,  If data is available already Show the data from existing subscription.*/
     private void loadPropertiesOnConfigChange() {
 
         if (viewSubscription == null || viewSubscription.isDisposed()) {
@@ -155,22 +152,29 @@ public class PropertyListPresenter<V extends PropertyListView> extends BasePrese
                         @Override
                         public void accept(Property property) throws Exception {
                             if (property.getData().getListings().size() == 0) {
-                                if (!viewState.isViewLoadedAtLeastOnceWithValidData()) {
+                                if (!isPropertyDataAvailable) {
                                     getMvpView().noPropertiesAvailable();
                                 } else {
                                     getMvpView().showListOfProperties(property.getData().getListings());
-                                    viewState.setViewLoadedAtLeastOnceWithValidData(true);
+                                    isPropertyDataAvailable = true;
                                 }
                             }
                         }
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
-                            if (!dataLoadingState.isLoadingData()) {
-                                getMvpView().showError(new LogNetworkError(throwable));
-                            }
+                            getMvpView().showError(new LogNetworkError(throwable));
                         }
                     });
         }
     }
+
+    public boolean isPropertyDataAvailable() {
+        return isPropertyDataAvailable;
+    }
+
+    public void setPropertyDataAvailable(boolean propertyDataAvailable) {
+        isPropertyDataAvailable = propertyDataAvailable;
+    }
+
 }

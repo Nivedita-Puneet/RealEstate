@@ -26,14 +26,12 @@ public class PropertyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private List<Listing> propertyAgencies;
     private Context context;
-    //private final List<DummyContent.DummyItem> mValues;
     private PropertyListClickListener propertyListClickListener;
 
 
     public PropertyListAdapter(Context context, PropertyListClickListener propertyListClickListener) {
         this.context = context;
         propertyAgencies = new LinkedList<>();
-        // mValues = DummyContent.ITEMS;
         this.propertyListClickListener = propertyListClickListener;
         propertyAgencies = new LinkedList<>();
     }
@@ -103,7 +101,7 @@ public class PropertyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public interface PropertyListClickListener {
 
-        void onClickListener(String itemPosition);
+        void onClickListener(String itemId);
     }
 
     public class PropertyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -132,7 +130,8 @@ public class PropertyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public void onClick(View view) {
 
             // DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
-            PropertyListAdapter.this.propertyListClickListener.onClickListener("");
+            PropertyListAdapter.this.propertyListClickListener
+                    .onClickListener(propertyAgencies.get(getAdapterPosition()).getId());
 
         }
     }

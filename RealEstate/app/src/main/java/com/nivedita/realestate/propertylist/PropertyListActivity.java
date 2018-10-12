@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.nivedita.realestate.base.BaseActivity;
@@ -57,16 +58,14 @@ public class PropertyListActivity extends BaseActivity implements PropertyListVi
 
     private void initializeControls() {
 
-        propertyListAdapter = new PropertyListAdapter(PropertyListActivity.this, null);
         propertyListView = (RecyclerView) findViewById(R.id.propertylist_list);
         progressBar = (ProgressBar) findViewById(R.id.main_progress);
-        propertyListView.setAdapter(propertyListAdapter);
-        /*propertyListView.setAdapter(new PropertyListAdapter(PropertyListActivity.this, new PropertyListAdapter.PropertyListClickListener() {
+
+        propertyListAdapter = new PropertyListAdapter(PropertyListActivity.this, new PropertyListAdapter.PropertyListClickListener() {
             @Override
             public void onClickListener(String itemPosition) {
 
-                if(checkForTabletConfiguration()){
-
+                if (checkForTabletConfiguration()) {
                     Bundle arguments = new Bundle();
                     arguments.putString(PropertyListDetailFragment.ARG_ITEM_ID, itemPosition);
                     PropertyListDetailFragment fragment = new PropertyListDetailFragment();
@@ -74,16 +73,15 @@ public class PropertyListActivity extends BaseActivity implements PropertyListVi
                     PropertyListActivity.this.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.propertylist_detail_container, fragment)
                             .commit();
-                }else {
+                } else {
 
                     Intent intent = new Intent(PropertyListActivity.this, PropertyListDetailActivity.class);
                     intent.putExtra(PropertyListDetailFragment.ARG_ITEM_ID, itemPosition);
                     PropertyListActivity.this.startActivity(intent);
-
                 }
             }
-        }));*/
-
+        });
+        propertyListView.setAdapter(propertyListAdapter);
     }
 
     private boolean checkForTabletConfiguration() {
@@ -104,6 +102,7 @@ public class PropertyListActivity extends BaseActivity implements PropertyListVi
     @Override
     public void showError(LogNetworkError logNetworkError) {
 
+        Toast.makeText(PropertyListActivity.this, logNetworkError.getAppErrorMessage(), Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -27,6 +27,8 @@ import io.reactivex.processors.PublishProcessor;
 @Module
 public class PropertyListModule {
 
+    boolean isPropertyDataAvailable;
+
     @Provides
     @ActivityContext
     Context provideContext(PropertyListActivity propertyListActivity) {
@@ -46,9 +48,15 @@ public class PropertyListModule {
                 LinearLayoutManager.VERTICAL, false);
     }
 
+
     @Provides
     ViewState provideViewState() {
         return new ViewState();
+    }
+
+    @Provides
+    boolean provideIsPropertyDataAvailable() {
+        return isPropertyDataAvailable;
     }
 
     @Provides

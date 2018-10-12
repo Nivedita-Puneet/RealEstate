@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="?attr/cardStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
+    android:layout_marginEnd="4dp"
     android:layout_marginStart="4dp"
-    android:layout_marginEnd="4dp">
+    android:layout_marginTop="4dp">
 
-    <android.support.constraint.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -31,141 +31,136 @@
             android:id="@+id/premium_flag"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="12dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
             android:text="@string/premium_property"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/premium_text"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/media_image"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
-             />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/media_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="12dp"
+            android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
-            app:srcCompat="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@+id/getArea_Of_Property"
             app:layout_constraintDimensionRatio="H,16:9"
-            app:layout_constraintTop_toBottomOf="@+id/premium_flag"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/getArea_Of_Property" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/premium_flag"
+            app:srcCompat="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/getArea_Of_Property"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textColor="#DE000000"
-            app:layout_constraintTop_toBottomOf="@+id/media_image"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/location_address"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/location_address" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/media_image" />
 
         <TextView
             android:id="@+id/location_address"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#8A000000"
-            app:layout_constraintTop_toBottomOf="@+id/getArea_Of_Property"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bedrooms_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/bedrooms" />
-
-        <TextView
-            style="@style/Base.TextAppearance.AppCompat.Display1"
-            android:id="@+id/bedrooms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
-            app:layout_constraintTop_toBottomOf="@+id/location_address"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/getArea_Of_Property" />
 
         <ImageView
             android:id="@+id/bedrooms_image"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/carSpace"
             android:padding="4dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/bed"
-            app:layout_constraintTop_toTopOf="@+id/location_address"
-            app:layout_constraintStart_toStartOf="@id/bedrooms"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/bed" />
 
         <TextView
-            style="@style/Base.TextAppearance.AppCompat.Display1"
-            android:id="@+id/bathroom"
+            android:id="@+id/bedrooms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="12dp"
             android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
-            app:layout_constraintTop_toBottomOf="@+id/location_address"
-            app:layout_constraintStart_toEndOf="@id/bedrooms_image"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bedrooms_image" />
 
         <ImageView
             android:id="@+id/bathrooms_image"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/carSpace"
             android:padding="4dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/bed"
-            app:layout_constraintTop_toTopOf="@+id/location_address"
-            app:layout_constraintStart_toEndOf="@id/bathroom"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintStart_toEndOf="@id/bedrooms"
+            app:srcCompat="@drawable/bath" />
+
 
         <TextView
-            style="@style/Base.TextAppearance.AppCompat.Small"
-            android:id="@+id/car_space"
+            android:id="@+id/bathroom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="12dp"
             android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
-            app:layout_constraintTop_toBottomOf="@+id/location_address"
-            app:layout_constraintStart_toEndOf="@id/bathrooms_image"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bathrooms_image" />
+
         <ImageView
             android:id="@+id/car_space_image"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/carSpace"
             android:padding="4dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/car"
-            app:layout_constraintTop_toTopOf="@+id/location_address"
-            app:layout_constraintStart_toEndOf="@id/car_space"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintStart_toEndOf="@id/bathroom"
+            app:srcCompat="@drawable/car" />
+
+        <TextView
+            android:id="@+id/car_space"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/car_space_image"
+            app:layout_constraintTop_toBottomOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>
