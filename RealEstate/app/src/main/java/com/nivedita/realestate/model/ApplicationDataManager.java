@@ -27,12 +27,6 @@ public class ApplicationDataManager implements DataManager {
     private final APIHelper apiHelper;
     private final Context context;
 
-    private DataLoadingState dataLoadingState;
-
-    private PublishProcessor<Property> dataSubject;
-    private Disposable dataSubscription;
-    private SchedulerProvider schedulerProvider;
-
     @Inject
     public ApplicationDataManager(@ApplicationContext Context context,
                                   APIHelper apiHelper) {

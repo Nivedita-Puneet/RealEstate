@@ -19,6 +19,7 @@ import dagger.Provides;
 import io.reactivex.Flowable;
 import io.reactivex.processors.PublishProcessor;
 import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Define Application Module which defines dependencies.
@@ -49,4 +50,5 @@ public class ApplicationModule {
     APIHelper getPropertyAPIHelper(PropertyAPIHelper propertyAPIHelper) {
         return propertyAPIHelper;
     }
+
 }

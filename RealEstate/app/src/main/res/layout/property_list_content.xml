@@ -12,33 +12,20 @@
     <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <!--<ImageView
-            android:id="@+id/avatar_image"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="12dp"
-            android:padding="4dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_avatar_40dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/media_image"
-            app:layout_constraintVertical_chainStyle="packed" />-->
-
         <TextView
             android:id="@+id/premium_flag"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/premium_property"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="@color/premium_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/colorPrimary"
             android:visibility="gone"
             android:textStyle="bold"
+            android:gravity="fill"
             app:layout_constraintBottom_toTopOf="@+id/media_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -87,8 +74,8 @@
 
         <ImageView
             android:id="@+id/bedrooms_image"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="4dp"
             android:layout_marginStart="8dp"
             android:contentDescription="@string/carSpace"
@@ -112,8 +99,8 @@
 
         <ImageView
             android:id="@+id/bathrooms_image"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="4dp"
             android:layout_marginStart="8dp"
             android:contentDescription="@string/carSpace"
@@ -138,8 +125,8 @@
 
         <ImageView
             android:id="@+id/car_space_image"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginBottom="4dp"
             android:layout_marginStart="8dp"
             android:contentDescription="@string/carSpace"
@@ -157,7 +144,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="12dp"
             android:textColor="@color/colorPrimaryTextDefaultMaterialLight"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/car_space_image"
             app:layout_constraintTop_toBottomOf="parent" />

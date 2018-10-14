@@ -12,10 +12,10 @@ import dagger.android.AndroidInjection;
  * A base activity which is extended by Property List Activity, It handles all the basic operations.
  */
 
-public class BaseActivity extends AppCompatActivity{
+public class BaseActivity extends AppCompatActivity implements BaseFragment.Callback {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         performDependencyInjection();
         if (BuildConfig.DEBUG) {
@@ -31,8 +31,17 @@ public class BaseActivity extends AppCompatActivity{
 
     }
 
-    public void performDependencyInjection(){
+    public void performDependencyInjection() {
         AndroidInjection.inject(BaseActivity.this);
     }
 
+    @Override
+    public void onFragmentAttached() {
+
+    }
+
+    @Override
+    public void onFragmentDetached(String tag) {
+
+    }
 }

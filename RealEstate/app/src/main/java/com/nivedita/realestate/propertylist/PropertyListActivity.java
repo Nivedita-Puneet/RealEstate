@@ -1,20 +1,13 @@
 package com.nivedita.realestate.propertylist;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -36,10 +29,7 @@ public class PropertyListActivity extends BaseActivity implements PropertyListVi
     PropertyListBasePresenter<PropertyListView> propertyListPresenter;
 
     ProgressBar progressBar;
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
+
     private boolean mTwoPane;
     private RecyclerView propertyListView;
 
@@ -119,12 +109,15 @@ public class PropertyListActivity extends BaseActivity implements PropertyListVi
 
     @Override
     public void showListOfProperties(List<Listing> properties) {
-        Log.i(PropertyListActivity.class.getSimpleName(), properties.get(0).getAgencyLogoUrl());
+
         propertyListAdapter.addAll(properties);
     }
 
     @Override
     public void noPropertiesAvailable() {
 
+        Toast.makeText(PropertyListActivity.this,
+                getString(R.string.no_properties_available),
+                Toast.LENGTH_SHORT).show();
     }
 }

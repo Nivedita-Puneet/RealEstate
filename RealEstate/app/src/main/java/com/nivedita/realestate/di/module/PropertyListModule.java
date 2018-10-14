@@ -18,7 +18,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.processors.PublishProcessor;
 
 /**
  * The Module class for Property List which provides all the dependencies.
@@ -26,8 +25,6 @@ import io.reactivex.processors.PublishProcessor;
 
 @Module
 public class PropertyListModule {
-
-    boolean isPropertyDataAvailable;
 
     @Provides
     @ActivityContext
@@ -48,26 +45,6 @@ public class PropertyListModule {
                 LinearLayoutManager.VERTICAL, false);
     }
 
-
-    @Provides
-    ViewState provideViewState() {
-        return new ViewState();
-    }
-
-    @Provides
-    boolean provideIsPropertyDataAvailable() {
-        return isPropertyDataAvailable;
-    }
-
-    @Provides
-    DataLoadingState provideDataLoadingState() {
-        return new DataLoadingState();
-    }
-
-    @Provides
-    PublishProcessor<Property> providePublishProcessor() {
-        return PublishProcessor.create();
-    }
 
     @Provides
     PropertyListBasePresenter<PropertyListView> providePresenter(PropertyListPresenter<PropertyListView> propertyListPresenter) {

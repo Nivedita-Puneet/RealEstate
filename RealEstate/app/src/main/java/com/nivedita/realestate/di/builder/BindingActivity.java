@@ -1,6 +1,7 @@
 package com.nivedita.realestate.di.builder;
 
 import com.nivedita.realestate.di.module.PropertyListModule;
+import com.nivedita.realestate.di.scope.PerActivity;
 import com.nivedita.realestate.propertylist.PropertyListActivity;
 
 import dagger.Module;

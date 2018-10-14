@@ -51,7 +51,6 @@ public class PropertyListDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         propertyId = (TextView) findViewById(R.id.property_id);
-        propertyId.setText(getIntent().getStringExtra(PropertyListDetailFragment.ARG_ITEM_ID));
 
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity

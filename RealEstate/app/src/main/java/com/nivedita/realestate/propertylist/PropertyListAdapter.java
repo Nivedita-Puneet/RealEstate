@@ -131,7 +131,7 @@ public class PropertyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             // DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
             PropertyListAdapter.this.propertyListClickListener
-                    .onClickListener(propertyAgencies.get(getAdapterPosition()).getId());
+                    .onClickListener(propertyAgencies.get(getAdapterPosition()).getDescription());
 
         }
     }

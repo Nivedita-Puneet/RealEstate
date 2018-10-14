@@ -12,12 +12,7 @@ import android.widget.TextView;
 import com.nivedita.realestate.R;
 import com.nivedita.realestate.propertylist.PropertyListActivity;
 
-/**
- * A fragment representing a single PropertyList detail screen.
- * This fragment is either contained in a {@link PropertyListActivity}
- * in two-pane mode (on tablets) or a {@link PropertyListDetailActivity}
- * on handsets.
- */
+
 public class PropertyListDetailFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
@@ -41,16 +36,10 @@ public class PropertyListDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            //TODO: Get the arguments and identify the id and set it as per the requirement.
-            //mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-              //  appBarLayout.setTitle(mItem.content);
+                //  appBarLayout.setTitle(mItem.content);
             }
         }
     }
@@ -60,10 +49,8 @@ public class PropertyListDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.propertylist_detail, container, false);
 
-        /*Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.propertylist_detail)).setText(mItem.details);
-        }*/
+        //Show the dummy content as text in a TextView.
+        ((TextView) rootView.findViewById(R.id.propertylist_detail)).setText(getArguments().getString(ARG_ITEM_ID));
 
         return rootView;
     }
