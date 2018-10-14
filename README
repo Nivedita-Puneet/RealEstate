@@ -1,5 +1,23 @@
-The project is developed using Android SDK, it additionally third party libraries i.e. RETROFIT, RXJAVA2, GSON and Dagger2 for DI. 
+The project is developed using Android SDK, it additionally uses third party libraries i.e. RETROFIT, RXJAVA2, GSON and Dagger2 for DI. 
 It follows purely MVP design pattren, where View or Activity/ Fragment is seggregated from Business Logic.
-Leverages powerful Annotation processing of android reducing a lot of boiler plate code. 
+Leverages powerful Annotation processing of Dagger reducing a lot of boiler plate code. 
 A single instance of presenter is surviving the configuration changes across and thus does not reload the
-network chnages through configuration changes
+network chnages through configuration changes. RXJAVA2 is used to handle Asynchronous operations with help of RXSchedulers, package of application is defined as per the features i.e. 
+Property List and Property Details Individual presenters and views are defined for respective screens along with the scope defined 
+for each of them. The available features in application are
+1. Used Master/Detail flow and followed all the coding guidelines to ensure the application works for both the Tablets as a two pane and 
+triggers detail activity in phone.
+2. Handled all the life cycle call backs with Unit testing covered, there are no application crashes across the application.
+3. Techinal design and architecture is highly scalable and is modularized to reuse.
+4. Defined the scope for individual presenters and followed Single Responsibility principle where an individual data interactions 
+irrespective of whether we are binding the data from network, cache or DB.
+5.Possible solutions which can be implemented within the scope of the application.
+    1. Leverage Features of RETROFIT to handle internet connection in a very robust way.
+    2. Define a Local Braod cast receiver to notify changes in network connectivity and reload the Content UI accordingly.
+    3. Elaborate the property Details page by adding more features into it.
+    
+    
+6. All the use cases required in order to complete the test are taken into consideration.
+ 
+
+
