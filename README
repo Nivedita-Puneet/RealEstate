@@ -1,0 +1,5 @@
+The project is developed using Android SDK, it additionally third party libraries i.e. RETROFIT, RXJAVA2, GSON and Dagger2 for DI. 
+It follows purely MVP design pattren, where View or Activity/ Fragment is seggregated from Business Logic.
+Leverages powerful Annotation processing of android reducing a lot of boiler plate code. 
+A single instance of presenter is surviving the configuration changes across and thus does not reload the
+network chnages through configuration changes
